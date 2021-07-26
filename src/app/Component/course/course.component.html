@@ -1,4 +1,56 @@
-{{title}}
+{{ title }}
 <ul>
-    <li *ngFor="let course of courses">{{course}}</li>
+  <li *ngFor="let course of courses">{{ course }}</li>
+  <!-- property binding. works only in one-way -->
+  <img [src]="imageUrl" />
+
+  <!-- attribute binding. -->
+  <table>
+    <tr>
+      <td [attr.colspan]="colSpan"></td>
+    </tr>
+  </table>
+
+  <button class="btn btn-primary">Save</button>
+
+  <!-- class binding -->
+  <button class="btn btn-primary" [class.active]="isActive">Save</button>
+
+  <!-- style binding. Refer DOM properties of Style object-->
+  <button
+    class="btn btn-primary"
+    [style.backgroundColor]="isActive ? 'blue' : 'red'"
+  >
+    Save
+  </button>
+
+  <!-- event binding. Handle events rais from the DOM -->
+  <div (click)="onDivClicked()">
+    <button class="btn btn-secondary" (click)="onSave($event)">
+      Event Binding
+    </button>
+  </div>
+
+  <!-- event filtering -->
+  <input type="text" (keyup.enter)="onKeyUp()" />
+
+  <!-- template variable. Act as reference to an element -->
+  <input type="text" #email (keyup.enter)="onKeyUp_1(email.value)" />
+
+  <!-- two-way binding -->
+  <input type="text" [(ngModel)]="email2" (keyup.enter)="onKeyUp_2()" />
+
+  <!-- pipes -->
+  {{
+    course.title | uppercase | lowercase
+  }} <br/>
+  {{
+    course.rating | number:'1.2-2'
+  }} <br/>
+  {{course.students | number}} <br/>
+  {{course.price | currency:'AUD':true:'3.2-2'}} <br/>
+  {{course.releaseDate|date:'shortDate'}}
+
+  <!-- custom pipe to show description summary -->
+  <p>{{description | summary}}</p>
 </ul>
